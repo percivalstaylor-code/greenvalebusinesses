@@ -212,6 +212,25 @@ Hosting is not included. Cloud Run scaled to zero and Firestore at this volume (
 
 **Google Cloud Run (australia-southeast2) + Firestore + Identity-Aware Proxy**, private by default:
 
+**Easiest:** in [Google Cloud Shell](https://shell.cloud.google.com), run:
+
+```bash
+gcloud config set project YOUR_PROJECT_ID
+git clone -b claude/greenvale-business-map-hfym7p https://github.com/percivalstaylor-code/greenvalebusinesses.git   # or: cd greenvalebusinesses && git pull
+cd greenvalebusinesses && bash scripts/deploy-cloud-run.sh
+```
+
+The script asks one question at a time: browser key, server key, app password and an optional Map ID. Keys and the password go into Secret Manager, never the command line. It then:
+- enables the APIs
+- creates Firestore in Melbourne
+- grants the service account its permissions
+- deploys with password protection
+- prints the URL to add to the browser key's website restrictions
+
+Re-run it to update the app, pressing Enter to keep stored secrets.
+
+The manual equivalent, using IAP (Google sign-in) instead of a password, is below.
+
 ```bash
 PROJECT=your-project; REGION=australia-southeast2
 gcloud firestore databases create --location=$REGION --project=$PROJECT
