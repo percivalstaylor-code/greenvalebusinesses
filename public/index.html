@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Greenvale Business Map</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2C10 2 5 7 5 13c0 8 11 17 11 17s11-9 11-17C27 7 22 2 16 2z' fill='%230b6e4f'/%3E%3Ccircle cx='16' cy='13' r='4.5' fill='%23fff'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="/css/app.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2C10 2 5 7 5 13c0 8 11 17 11 17s11-9 11-17C27 7 22 2 16 2z"/><circle cx="16" cy="13" r="4.5"/></svg>
+      <div>
+        <h1>Greenvale Business Map</h1>
+        <p class="subtitle" id="boundary-badge">Greenvale District · Victorian state electorate</p>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="usage-pill" id="usage-pill" title="Google requests made by this app today">—</span>
+      <button class="icon-btn" id="btn-about" type="button" aria-haspopup="dialog">About<span class="about-long"> &amp; limits</span></button>
+    </div>
+  </header>
+
+  <div id="banner" class="banner" role="alert" hidden></div>
+
+  <main class="layout">
+    <aside class="sidebar" id="sidebar" aria-label="Search and results">
+      <section class="panel search-panel" aria-label="Search Google Places">
+        <div class="field-row">
+          <label class="field">
+            <span>Category</span>
+            <select id="category"></select>
+          </label>
+          <label class="field">
+            <span>Type</span>
+            <select id="subtype"><option value="">All types in category</option></select>
+          </label>
+        </div>
+        <div class="btn-row">
+          <button class="btn primary" id="btn-area" type="button">Search map area</button>
+          <button class="btn" id="btn-sweep" type="button">Sweep whole electorate…</button>
+        </div>
+        <p class="hint" id="cost-hint"></p>
+        <form class="free-search" id="free-search" role="search">
+          <label class="visually-hidden" for="free-q">Search Google Places in the map area</label>
+          <input id="free-q" type="search" maxlength="120" placeholder="Or search Google here, e.g. mechanic" autocomplete="off">
+          <button class="btn" type="submit">Search</button>
+        </form>
+      </section>
+
+      <nav class="tabs" role="tablist" aria-label="Views">
+        <button role="tab" class="tab" id="tab-btn-results" aria-controls="tab-results" aria-selected="true">Results <span class="count" id="count-results">0</span></button>
+        <button role="tab" class="tab" id="tab-btn-sab" aria-controls="tab-sab" aria-selected="false">Service-area <span class="count" id="count-sab">0</span></button>
+        <button role="tab" class="tab" id="tab-btn-review" aria-controls="tab-review" aria-selected="false">Review <span class="count" id="count-review">0</span></button>
+        <button role="tab" class="tab" id="tab-btn-coverage" aria-controls="tab-coverage" aria-selected="false">Coverage</button>
+      </nav>
+
+      <section class="tab-panel" id="tab-results" role="tabpanel" aria-labelledby="tab-btn-results">
+        <div class="filters">
+          <input id="filter-text" type="search" placeholder="Filter these results (no extra Google requests)" autocomplete="off" aria-label="Filter results">
+          <div class="filter-row">
+            <select id="filter-scope" aria-label="Which searches to show">
+              <option value="all">All searches</option>
+              <option value="latest">Latest search only</option>
+            </select>
+            <select id="filter-category" aria-label="Filter by category"><option value="">All categories</option></select>
+          </div>
+          <div class="chips" id="status-chips" role="group" aria-label="Filter by electorate status"></div>
+          <label class="check"><input type="checkbox" id="filter-inview"> Only list what is visible on the map</label>
+        </div>
+        <div class="search-summary" id="search-summary" aria-live="polite"></div>
+        <ul class="result-list" id="result-list"></ul>
+        <div class="list-footer" id="list-footer"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-sab" role="tabpanel" aria-labelledby="tab-btn-sab" hidden>
+        <p class="panel-note">Businesses Google lists as <strong>service-area only</strong> (they travel to customers and have no public premises). Their physical location cannot be established, so they have no map marker and no electorate status.</p>
+        <ul class="result-list" id="sab-list"></ul>
+      </section>
+
+      <section class="tab-panel" id="tab-review" role="tabpanel" aria-labelledby="tab-btn-review" hidden>
+        <p class="panel-note">Locations Google has not confirmed inside the electorate. Open one, compare its marker with the boundary, and record a decision. Decisions are saved by place ID and override the automatic status.</p>
+        <ul class="result-list" id="review-list"></ul>
+        <div class="list-footer" id="review-footer"></div>
+      </section>
+
+      <section class="tab-panel" id="tab-coverage" role="tabpanel" aria-labelledby="tab-btn-coverage" hidden>
+        <div id="coverage"></div>
+      </section>
+    </aside>
+
+    <section class="map-wrap" aria-label="Map">
+      <div id="map" class="map" role="application" aria-label="Map of Greenvale District"></div>
+      <button class="btn floating" id="btn-search-here" type="button" hidden>Search this area</button>
+      <div class="legend" id="legend" aria-label="Map legend"></div>
+      <div class="map-loading" id="map-loading">Loading Google Maps…</div>
+    </section>
+
+    <aside class="details" id="details" aria-label="Business details" hidden>
+      <div class="details-inner" id="details-inner"></div>
+    </aside>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <dialog class="dialog" id="sweep-dialog" aria-labelledby="sweep-title">
+    <form method="dialog" class="dialog-body" id="sweep-form">
+      <h2 id="sweep-title">Sweep the whole electorate</h2>
+      <div id="sweep-plan"></div>
+      <div class="dialog-actions">
+        <button class="btn" value="cancel" type="submit">Cancel</button>
+        <button class="btn primary" value="run" type="submit" id="sweep-run">Run sweep</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="dialog wide" id="about-dialog" aria-labelledby="about-title">
+    <div class="dialog-body">
+      <h2 id="about-title">About this map</h2>
+      <div id="about-content"></div>
+      <div class="dialog-actions"><button class="btn primary" type="button" id="about-close">Close</button></div>
+    </div>
+  </dialog>
+
+  <script src="/vendor/markerclusterer.min.js"></script>
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>

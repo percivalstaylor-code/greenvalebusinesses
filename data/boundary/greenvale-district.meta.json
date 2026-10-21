@@ -1,0 +1,55 @@
+{
+  "name": "Greenvale District",
+  "kind": "Victorian Legislative Assembly electoral district (state electorate)",
+  "notThe": [
+    "Greenvale suburb/locality",
+    "postcode 3059",
+    "City of Hume",
+    "any federal division"
+  ],
+  "officialAttributes": {
+    "ufi": 21992913,
+    "district_code": 35,
+    "district": "GREENVALE",
+    "district_label": "Greenvale District",
+    "region_code": 3,
+    "region": "NORTHERN METROPOLITAN",
+    "region_label": "Northern Metropolitan Region",
+    "ufi_created": "2021-11-19T00:00:00Z"
+  },
+  "source": {
+    "dataset": "Vicmap Admin – State Assembly Polygon 2022",
+    "publisher": "Victorian Electoral Commission (via DataVic / Vicmap open data platform)",
+    "datavic": "https://discover.data.vic.gov.au/dataset/vicmap-admin-state-assembly-polygon-2022",
+    "metadata": "https://metashare.maps.vic.gov.au/geonetwork/srv/eng/catalog.search#/metadata/e9871b61-55b5-5a5a-b371-4b07370ffaba",
+    "wfsLayer": "open-data-platform:state_assembly_2022",
+    "request": "https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=open-data-platform%3Astate_assembly_2022&outputFormat=application%2Fjson&srsName=EPSG%3A4326&CQL_FILTER=district+%3D+%27GREENVALE%27",
+    "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+    "attribution": "© State of Victoria (Victorian Electoral Commission), Vicmap Admin, CC BY 4.0",
+    "crossCheck": "VEC district page KML (https://www.vec.vic.gov.au/electoral-boundaries/state-districts/greenvale-district) matched within 1.55 m Hausdorff distance (GDA94/GDA2020 datum offset) when this file was first generated."
+  },
+  "effective": {
+    "redivision": "2020–21 Electoral Boundaries Redivision (Electoral Boundaries Commission Act 1982)",
+    "effectiveFrom": "2022-11-01",
+    "effectiveNote": "EBC: \"The 2021 redivision of Victoria’s State electoral boundaries came into effect on 1 November 2022 and will remain in place until the writ for the 2030 State election is issued, unless triggered sooner.\"",
+    "ebcSource": "https://www.ebc.vic.gov.au/Past-Redivisions/Default.html",
+    "vicmapRecordCreated": "2021-11-19T00:00:00Z"
+  },
+  "geometry": {
+    "vertices": 6707,
+    "orientation": "counter-clockwise exterior ring, no holes",
+    "crs": "EPSG:4326 (WGS 84 lon/lat), served from GDA2020 source data",
+    "bbox": [
+      144.834049,
+      -37.682423,
+      144.974452,
+      -37.598354
+    ],
+    "sphericalAreaKm2": 60.188,
+    "geodesicAreaKm2": 60.084,
+    "geodesicAreaNote": "GRS80 ellipsoidal area computed with pyproj when this file was first generated; the spherical figure is a quick approximation.",
+    "vecPublishedAreaKm2": 60.08,
+    "sha256OfRing": "947c150816564c2826469458f0dc79b6360d24c7c3916ca506fa99462523ee0b"
+  },
+  "retrievedAt": "2026-10-20T23:35:48.168Z"
+}

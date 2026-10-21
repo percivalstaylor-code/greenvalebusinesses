@@ -1,0 +1,30 @@
+{
+  "name": "greenvale-business-map",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Interactive Google map of businesses in the Victorian state electorate of Greenvale (Greenvale District), discovered live through Google Places API (New).",
+  "type": "module",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "test": "node --test \"test/**/*.test.js\"",
+    "fetch-boundary": "node scripts/fetch-boundary.mjs",
+    "check-config": "node scripts/check-config.mjs",
+    "smoke:live": "node scripts/smoke-live.mjs",
+    "verify:ui": "node scripts/verify-ui.mjs"
+  },
+  "dependencies": {
+    "@googlemaps/markerclusterer": "2.6.2",
+    "express": "5.1.0",
+    "polygon-clipping": "0.15.7"
+  },
+  "optionalDependencies": {
+    "@google-cloud/firestore": "8.7.1"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
